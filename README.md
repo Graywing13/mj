@@ -1,10 +1,11 @@
 # mj
 vanilla js mahjong game, for my js-learning friend
 
-
-# instructions
+<br />
 
 ---
+
+# instructions
 
 #### Prerequisites
 
@@ -15,10 +16,11 @@ vanilla js mahjong game, for my js-learning friend
 - [ ] Make an index.js file in the root of your project. You will make your changes here.
 - [ ] Complete lesson 0
 
-
-## lesson 0: setup variables
+<br />
 
 ---
+
+## lesson 0: setup variables
 
 Welcome to the course. This lesson isn't reallllly a lesson, but it will set you
 up for coding. 
@@ -32,6 +34,8 @@ First, brainstorm what categories of tiles there are. Here's what I came up with
 1. Bamboo, Circles, and Characters are all numerical tiles
 2. Dragons and Winds are honour tiles
 </details>
+
+<br />
 
 #### 0.2: Converting to Constants
 
@@ -59,6 +63,8 @@ const DRAGONS = ['red', 'green', 'white']
 ```
 </details>
 
+<br />
+
 #### 0.3: Prep For Tile Generation
 
 Finally, we want to make an empty array variable to hold all the tiles we
@@ -74,9 +80,9 @@ _Reminder that lesson answers are stored in the [/answers](./answers) folder._
 
 <br />
 
-## lesson 1: create deck of tiles
-
 ---
+
+## lesson 1: create deck of tiles
 
 #### 1.1: Generate Regular Tiles
 > 1) Start an empty function called `generateRegularTiles()`.
@@ -128,12 +134,14 @@ _Reminder that lesson answers are stored in the [/answers](./answers) folder._
 
 > WORK IN PROGRESS
 
+<br />
+
 #### 1.3: Pretty-print Tiles
 
 So... we've been reading tile objects so far, but it's not very easy to skim, nor is
 it concise in any manner. We're going to do a QOL fix now, to print tiles concisely.
 
-> WORK IN PROGRESS
+> WORK IN PROGRESS 萬 🐉 💨
 
 <br />
 
@@ -146,28 +154,34 @@ _Keywords are bolded._
 
 <br>
 
-## lesson 1.5: shuffle tiles
-
 ---
+
+## lesson 1.5: shuffle tiles
 
 <br>
 
-## lesson 2: distribute tiles 
-
 ---
+
+## lesson 2: distribute tiles 
 
 In this section we will be setting up the wall, dora, and player hands. 
 Lots of arrays coming up, get prepared!
 
+#### 2.1: Refactoring
+
+At the beginning of every section, we will do a refactor. Sometimes
+the code is outdated, or we learned new/better ways to write our own code.
+Refactoring also teaches you to critique your own code.
+
 <br>
+
+---
 
 ## lesson 3: draw and discard
 
 ---
 
 ## lesson 4: resiliency
-
----
 
 What if the player discards a tile they don't have? Try it out. 
 
@@ -176,11 +190,11 @@ The app crashes, gg.
 This also goes for if their syntax is wrong. 
 
 In this lesson, we will work on writing instructions for the player, and also catch errors while adding
-helpful text if they put the wrong thing. 
-
-## lesson 5: checking for win condition
+helpful text if they put the wrong thing.
 
 ---
+
+## lesson 5: checking for win condition
 
 <br />
 
@@ -209,7 +223,7 @@ It is also good for training you to write good function names, since function na
 functional summaries.
 
 <details> 
-<summary>Digression: my Javadoc has @'s! </summary>
+<summary>Digression: my Javadoc has `@`'s!</summary>
 
 If you add the `/**` above an existing function and press enter, you might notice it ends up like this:
 ```js
