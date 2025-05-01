@@ -18,8 +18,6 @@ vanilla js mahjong game, for my js-learning friend
 
 <br />
 
----
-
 ## lesson 0: setup variables
 
 Welcome to the course. This lesson isn't reallllly a lesson, but it will set you
@@ -79,8 +77,6 @@ You are now ready to start lesson 1!
 _Reminder that lesson answers are stored in the [/answers](./answers) folder._
 
 <br />
-
----
 
 ## lesson 1: create deck of tiles
 
@@ -154,13 +150,9 @@ _Keywords are bolded._
 
 <br>
 
----
-
 ## lesson 1.5: shuffle tiles
 
 <br>
-
----
 
 ## lesson 2: distribute tiles 
 
@@ -175,11 +167,7 @@ Refactoring also teaches you to critique your own code.
 
 <br>
 
----
-
 ## lesson 3: draw and discard
-
----
 
 ## lesson 4: resiliency
 
@@ -192,11 +180,11 @@ This also goes for if their syntax is wrong.
 In this lesson, we will work on writing instructions for the player, and also catch errors while adding
 helpful text if they put the wrong thing.
 
----
-
 ## lesson 5: checking for win condition
 
 <br />
+
+---
 
 # Readings
 
