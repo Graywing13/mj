@@ -46,8 +46,9 @@ Refactor?" and "Benefits" section:
 https://refactoring.guru/replace-magic-number-with-symbolic-constant
 
 Alright. Now that we know why, here's what I did:
-Note: this is very flawed, we will make improvements starting in lesson 1. 
-That is okay. You might have some constants I missed. That is great.
+
+_Note: this is very flawed, we will make improvements starting in lesson 1. 
+That is okay. You might have some constants I missed. That is great._
 
 <details>
 <summary>Attempt:</summary>
@@ -122,7 +123,7 @@ _Reminder that lesson answers are stored in the [/answers](./answers) folder._
 >    - ex. Accessing the 5th item of a 0-indexed array: `arr[4]`
 > 10) Once that is fixed, run your code again and check the output. 
 > 
-> Congrats, you have completed this section. 
+> Congratulations, you have completed this section. 
 
 <br />
 
@@ -157,15 +158,205 @@ _Keywords are bolded._
 ## lesson 2: distribute tiles 
 
 In this section we will be setting up the wall, dora, and player hands. 
-Lots of arrays coming up, get prepared!
+Lots of arrays coming up, get prepared >:)
+
+<br />
 
 #### 2.1: Refactoring
 
-At the beginning of every section, we will do a refactor. Sometimes
-the code is outdated, or we learned new/better ways to write our own code.
-Refactoring also teaches you to critique your own code.
+Hey there. Welcome back to another mahjong coding lesson!
+
+At the beginning of every section, we will do a refactor. This means we will rewrite existing code in a better way.
+Sometimes the code is outdated, or we learned cleaner, more concise ways to write our own code.
+As such, refactoring also teaches you to critique your own code.
+
+Now I have a proposition. Ending up with better code is FUN!
+My friend, I think you are already halfway there since you find experimenting fun. So let's make use of
+your enjoyment and spin it into refactoring as well. 
+
+**So about `.push()`...**
+
+Right now, the push method works. The thing is... it doesn't.... exactly feel right to be calling
+push 144 times! 
+
+Instead of each function returning its output, right now each function just appends to
+`allTiles`. This makes testing kind of awkward: we can't just `console.log(generateHonourTiles())`
+because `generateHonourTiles()` actually returns nothing. Additionally, if you remember the 
+immutability guideline, we don't exactly want to be modifying constant arrays 144 times.
+
+So how do we stop using `.push()`?
+
+To start off, let me give you some small pieces of code.
+
+**Piece 1: Spread Syntax `...`**
+
+> Spread syntax takes the elements of existing arrays, and adds each one to a new array.
+
+```js
+const redFruits = ['apple', 'cherry']
+const yellowFruits = ['mango', 'banana', 'lemon']
+const allFruits = [...redFruits, ...yellowFruits] 
+console.log(allFruits) // ['apple', 'cherry', 'mango', 'banana', 'lemon']
+```
+
+**Piece 2: `.concat()`**
+
+I'm gonna take this one directly from  MDN ([https://developer.mozilla.org/.../concat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)) because they did a great job:
+
+> The concat() method of Array instances is used to merge two or more arrays. 
+> This method does not change the existing arrays, but instead returns a new array.
+
+```js
+const array1 = ["a", "b", "c"];
+const array2 = ["d", "e", "f"];
+const array3 = array1.concat(array2);
+
+console.log(array3);
+// Expected output: Array ["a", "b", "c", "d", "e", "f"]
+```
+
+**Bringing it together**
+
+What do you think this will print?
+
+```js
+const justZero = [0]
+
+function giveNumbers() {
+    // Part 1: what does this return?
+    return [1, 2]
+}
+
+function giveNumbersWithATwist() {
+    // Part 2: what is the value of nums?
+    const nums = giveNumbers().map((num) => {
+        return num + 2
+    })
+    // Part 3: what is the value of moreNums?
+    const moreNums = nums.concat([13])
+    return moreNums
+}
+
+// Part 4: What is the value of numList?
+const numList = [...justZero, ...giveNumbers(), ...giveNumbersWithATwist()]
+```
+
+<details>
+<summary>Answers:</summary>
+
+1) `[1, 2]`
+2) `[3, 4]`
+3) `[3, 4, 13]`
+4) `[0, 1, 2, 3, 4, 13]`
+</details>
+
+Does this make sense?
+
+**What do I do with this new array joining knowledge?**
+
+Experiment, of course! After you complete the above exercise, you are equipped to do refactoring.
+
+Here are the steps I recommend:
+
+1. For each function, make it return the array of tiles it generates (instead of pushing to `allTiles`)
+2. Use either `.concat()` or `...` (spread syntax) to join these tiles together. You get to pick which way!
+- Refer to `numList` in the example above if you need some guidance.
+
+> Note: memory performance will be worse, since we are making copies of arrays every time we
+`concat` or spread. But since our application is small, memory performance doesn't really matter.
+Rather, it is paramount that the code be easily debuggable and maintainable; its functions' effects should also be traceable.
+
+**Refactoring Wrap-up**
+
+Some other (optional) ideas:
+- Use the const syntax (used in `HONOUR_TYPE`) for dragons and winds
+  - Remember to switch to `Object.values(MY_TYPE)` whenever you iterate the array.
+- Look into the `Array(n)` syntax and use it for generating numerical tiles
+  - ex. `[...Array(10).keys()]  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`
+- Pour yourself a glass of water. Cheers :)
 
 <br>
+
+#### 2.2: Distribute Tiles
+
+Since our refactoring lesson was so long, this lesson's got to be short, right?
+
+Right. 
+
+This is honestly very easy. First we have to understand array `slice` and `splice`. 
+
+Now I never remember the difference between these, and I had to look it up. This site was decent:
+https://www.freecodecamp.org/news/javascript-slice-and-splice-how-to-use-the-slice-and-splice-js-array-methods/
+
+Basically...
+
+| Slice | Splice |
+| ----- | ------ |
+| Slice doesn't modify the original array | Splice modifies the og array |
+| Slice syntax is `arr.slice(startIdx, endIdx)` | Splice syntax is `arr.splice(startIdx, numItems)` |
+| Slice essentially reads and (shallow) copies the items | Splice essentially moves the items over from the old array, deleting them |
+| `['a', 'b', 'c', 'd'].slice(0, 2)` = `['a', 'b']` | `['a', 'b', 'c', 'd'].splice(0, 2)` = `['a', 'b']` |
+| To get `['c', 'd']`, these are the (0-indexed, end exclusive) 2nd to 4th indexes. So it's `.slice(2, 4)` | To get `['c', 'd']`, we start at the 2nd index and take 2 items, so we `.splice(2, 2)` |
+
+Don't worry about shallow copy for now. We'll get there if you haven't already. 
+
+Hope the rest made sense. I remember struggling with these concepts. 
+
+I personally believe `.splice()` is more straightforward, and in mahjong you conceptually move tiles into the dora / wall / hands
+instead of copying them. Therefore, we will use `.splice()` in this project.
+
+Now I want you to play with splice. 
+
+**Playing with Splice**
+
+Here is an array:
+```js
+const mysteriousArray = ['Lindelof', 'Mazraoui', 'De Ligt', 'Maguire', 'Martinez', 'Malacia', 'Dorgu', 'Yoro', 'Dalot', 'Shaw', 'Heaven', 'Evans', 'Amass']
+```
+> 1. Using `console.log(...)` and `mysteriousArray.splice(...)`, print the following in order:
+>    - Names from Lindelof to Maguire, inclusive
+>    - Names from Martinez to Malacia, inclusive
+>    - Name(s) from Dorgu to Dorgu, inclusive
+>    - Names from Yoro to Amass, inclusive
+> 
+>      No answer key because I'm confident you'll figure it out, but if you're stuck you can ask me.
+> 
+> 2. Now instead of `console.log(...)`, can you assign each list to its own constant instead? 
+> 3. For visibility, print out this list! 
+>    - For example: 
+>      ```js
+>      console.log(`Small numbers: ${smallNums} \nMedium numbers: ${mediumNums} ...`)
+>      ```
+
+**Back to Mahjong**
+
+Alright. Now you can `splice` away your shuffled tiles. Iirc it's something like this?
+
+- 13x4 tiles, for each player
+- 5 tiles for dora
+- Remaining tiles go to the wall.
+
+There are 6 groups of tiles here, therefore 6 splices. But heck, you can rename the `shuffledTiles` variable to `wall`
+since we deal out from the wall anyway. Then you only need to splice 5 times.
+
+Steps are as follows:
+
+> 1. Make a function `distributeTiles()`. It will operate on `shuffledTiles`. 
+> 2. Splice `shuffledTiles` to make those 6 arrays. 
+> 3. Check your work by printing out each array.
+> 
+> Congratulations, you have completed this section.
+
+<br />
+
+#### Bonus Challenge
+
+- I believe mahjong actually deals 3 tiles at a time to each player. Can you simulate this using `splice` and `concat`/`...`?
+- I actually believe push is more suitable than `concat`/`...` when dealing tiles, since conceptually you are adding it
+  to an existing hand. Can you figure out how to use `push` to append the tiles?
+  - Hint: After you `splice` the three tiles out, you may need to use `.forEach()` to `push` each one.
+
+<br />
 
 ## lesson 3: draw and discard
 
