@@ -355,6 +355,8 @@ Steps are as follows:
 - I actually believe push is more suitable than `concat`/`...` when dealing tiles, since conceptually you are adding it
   to an existing hand. Can you figure out how to use `push` to append the tiles?
   - Hint: After you `splice` the three tiles out, you may need to use `.forEach()` to `push` each one.
+- A little more syntax to introduce to you! Search up "js push multiple items to array". Look at either MDN or StackOverflow,
+  and see how to push multiple items using just 1 `.push()` command (and no `forEach`, `map` etc.)
 
 <br />
 
